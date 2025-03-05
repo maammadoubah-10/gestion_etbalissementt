@@ -10,22 +10,24 @@ pipeline {
 stage('Build devops') {
     steps {
         script {
-            def services = ['ms-classes', 'ms-cours', 'ms-etudiants', 'ms-professeurs', 'ms-emplois']
-            services.each { service ->
+            def services = ['ms-classes', 'ms-professeurs', 'ms-emplois', 'ms-cours', 'ms-etudiants']
+            for (service in services) {
                 dir("devops/${service}") {
                     sh '''
-                    if [ -f composer.json ]; then
-                        composer install --no-interaction --prefer-dist
-                    else
-                        echo "composer.json non trouvé pour ${service}, vérifiez le dépôt !"
-                        exit 1
-                    fi
+                        echo "📌 Suppression du cache Composer et des anciens fichiers..."
+                        rm -rf vendor composer.lock
+                        composer clear-cache
+                        echo "📌 Installation des dépendances Laravel..."
+                        composer install --no-interaction --prefer-dist --no-scripts --no-progress
+                        echo "📌 Génération de l'autoload..."
+                        composer dump-autoload --optimize
                     '''
                 }
             }
         }
     }
 }
+
 
 
         stage('Build angular') {
