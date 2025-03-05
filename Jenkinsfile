@@ -12,7 +12,14 @@ pipeline {
             steps {
                 script {
                     dir('devops') {
-                        sh 'composer install'
+                        sh '''
+cd devops/ms-classes && composer install --no-interaction --prefer-dist
+cd ../ms-cours && composer install --no-interaction --prefer-dist
+cd ../ms-etudiants && composer install --no-interaction --prefer-dist
+cd ../ms-professeurs && composer install --no-interaction --prefer-dist
+cd ../ms-emplois && composer install --no-interaction --prefer-dist
+'''
+
                     }
                 }
             }
