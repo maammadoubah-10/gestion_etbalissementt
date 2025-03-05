@@ -1,0 +1,16 @@
+<h2>Modifier l'Étudiant</h2>
+<form (ngSubmit)="modifierEtudiant()">
+  <input type="text" placeholder="Nom" [(ngModel)]="etudiant.nom" name="nom" required>
+  <input type="text" placeholder="Prénom" [(ngModel)]="etudiant.prenom" name="prenom" required>
+  <input type="email" placeholder="Email" [(ngModel)]="etudiant.email" name="email" required>
+
+  <!-- 🔥 Liste déroulante pour choisir une classe -->
+  <select [(ngModel)]="etudiant.classe_id" name="classe_id" required>
+    <option value="" disabled>-- Sélectionner une classe --</option>
+    <option *ngFor="let classe of classes" [value]="classe.id">
+      {{ classe.nom }} - {{ classe.niveau }}
+    </option>
+  </select>
+
+  <button type="submit">Modifier</button>
+</form>

@@ -1,0 +1,32 @@
+<h2>Liste des Emplois du Temps</h2>
+<button routerLink="/emplois/ajouter">Ajouter un Emploi du Temps</button>
+
+<table border="1">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Jour</th>
+      <th>Heure Début</th>
+      <th>Heure Fin</th>
+      <th>Salle</th>
+      <th>Professeur</th>
+      <th>Cours</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let emploi of emplois">
+      <td>{{ emploi.id }}</td>
+      <td>{{ emploi.jour }}</td>
+      <td>{{ emploi.heure_debut }}</td>
+      <td>{{ emploi.heure_fin }}</td>
+      <td>{{ emploi.salle }}</td>
+      <td>{{ emploi.professeur }}</td>
+      <td>{{ emploi.cours }}</td>
+      <td>
+        <button (click)="supprimerEmploi(emploi.id)">Supprimer</button>
+        <button (click)="modifier(emploi.id)">Modifier</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

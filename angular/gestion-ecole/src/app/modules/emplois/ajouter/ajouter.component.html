@@ -1,0 +1,27 @@
+<h2>Ajouter un Emploi du Temps</h2>
+
+<form (submit)="ajouterEmploi()">
+  <label>Jour :</label>
+  <input type="text" [(ngModel)]="nouvelEmploi.jour" name="jour" required>
+
+  <label>Heure Début :</label>
+  <input type="time" [(ngModel)]="nouvelEmploi.heure_debut" name="heure_debut" required>
+
+  <label>Heure Fin :</label>
+  <input type="time" [(ngModel)]="nouvelEmploi.heure_fin" name="heure_fin" required>
+
+  <label>Salle :</label>
+  <input type="text" [(ngModel)]="nouvelEmploi.salle" name="salle" required>
+
+  <label>Professeur :</label>
+  <select [(ngModel)]="nouvelEmploi.professeur_id" name="professeur_id" required>
+    <option *ngFor="let prof of professeurs" [value]="prof.id">{{ prof.nom }}</option>
+  </select>
+
+  <label>Cours :</label>
+  <select [(ngModel)]="nouvelEmploi.cours_id" name="cours_id" required>
+    <option *ngFor="let cours of cours" [value]="cours.id">{{ cours.nom }}</option>
+  </select>
+
+  <button type="submit">Ajouter</button>
+</form>

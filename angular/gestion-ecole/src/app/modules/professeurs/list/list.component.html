@@ -1,0 +1,28 @@
+<h2>Liste des Professeurs</h2>
+<button routerLink="/professeurs/ajouter">Ajouter un Professeur</button>
+
+<table border="1">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nom</th>
+      <th>Prénom</th>
+      <th>Email</th>
+      <th>Spécialité</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let prof of professeurs">
+      <td>{{ prof.id }}</td>
+      <td>{{ prof.nom }}</td>
+      <td>{{ prof.prenom }}</td>
+      <td>{{ prof.email }}</td>
+      <td>{{ prof.specialite }}</td>
+      <td>
+        <button (click)="modifier(prof.id)">Modifier</button>
+        <button (click)="supprimerProfesseur(prof.id)">Supprimer</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

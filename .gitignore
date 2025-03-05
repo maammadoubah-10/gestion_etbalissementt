@@ -1,0 +1,12 @@
+# Node.js et Angular
+node_modules/
+dist/
+
+# Laravel
+vendor/
+storage/
+.env
+
+# Docker et autres
+*.log
+docker-compose.override.yml

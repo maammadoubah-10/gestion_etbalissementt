@@ -1,0 +1,30 @@
+<h2>Liste des Cours</h2>
+<button routerLink="/cours/ajouter">Ajouter un Cours</button>
+
+<table border="1">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nom</th>
+      <th>Code</th>
+      <th>Description</th>
+      <th>Classe</th>
+      <th>Professeur</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let cours of coursList">
+      <td>{{ cours.id }}</td>
+      <td>{{ cours.nom }}</td>
+      <td>{{ cours.code }}</td>
+      <td>{{ cours.description }}</td>
+      <td>{{ cours.classe_nom }}</td>
+      <td>{{ cours.professeur_nom }}</td>
+      <td>
+        <button (click)="supprimerCours(cours.id)">Supprimer</button>
+        <button (click)="modifierCours(cours.id)">Modifier</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

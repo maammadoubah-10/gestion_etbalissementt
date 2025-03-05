@@ -1,0 +1,16 @@
+<h2>Ajouter un Étudiant</h2>
+<form (submit)="ajouterEtudiant()">
+  <input type="text" placeholder="Nom" [(ngModel)]="nouvelEtudiant.nom" name="nom" required>
+  <input type="text" placeholder="Prénom" [(ngModel)]="nouvelEtudiant.prenom" name="prenom" required>
+  <input type="email" placeholder="Email" [(ngModel)]="nouvelEtudiant.email" name="email" required>
+
+  <!-- 🔥 Liste déroulante des classes -->
+  <select [(ngModel)]="nouvelEtudiant.classe_id" name="classe_id" required>
+    <option value="" disabled selected>-- Sélectionner une classe --</option>
+    <option *ngFor="let classe of classes" [value]="classe.id">
+      {{ classe.nom }} - {{ classe.niveau }}
+    </option>
+  </select>
+
+  <button type="submit">Ajouter</button>
+</form>

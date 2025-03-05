@@ -1,0 +1,10 @@
+<h2>Ajouter une Classe</h2>
+<form (submit)="ajouterClasse()">
+  <label>Nom :</label>
+  <input type="text" [(ngModel)]="nouvelleClasse.nom" name="nom" required>
+  
+  <label>Niveau :</label>
+  <input type="text" [(ngModel)]="nouvelleClasse.niveau" name="niveau" required>
+  
+  <button type="submit">Ajouter</button>
+</form>

@@ -1,0 +1,28 @@
+<h2>Liste des Étudiants</h2>
+<button routerLink="/etudiants/ajouter">Ajouter un Étudiant</button>
+
+<table border="1">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nom</th>
+      <th>Prénom</th>
+      <th>Email</th>
+      <th>Classe</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let etudiant of etudiants">
+      <td>{{ etudiant.id }}</td>
+      <td>{{ etudiant.nom }}</td>
+      <td>{{ etudiant.prenom }}</td>
+      <td>{{ etudiant.email }}</td>
+      <td>{{ etudiant.classe_nom }}</td>
+      <td>
+        <button (click)="supprimerEtudiant(etudiant.id)">Supprimer</button>
+        <button (click)="modifier(etudiant.id)">Modifier</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

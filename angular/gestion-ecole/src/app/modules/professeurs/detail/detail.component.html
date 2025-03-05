@@ -1,0 +1,16 @@
+<h2>Modifier le Professeur</h2>
+<form (submit)="modifierProfesseur()">
+  <label>Nom :</label>
+  <input type="text" [(ngModel)]="prof.nom" name="nom" required>
+
+  <label>Prénom :</label>
+  <input type="text" [(ngModel)]="prof.prenom" name="prenom" required>
+
+  <label>Email :</label>
+  <input type="email" [(ngModel)]="prof.email" name="email" required>
+
+  <label>Spécialité :</label>
+  <input type="text" [(ngModel)]="prof.specialite" name="specialite" required>
+
+  <button type="submit">Modifier</button>
+</form>

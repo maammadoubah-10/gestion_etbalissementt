@@ -1,0 +1,16 @@
+<h2>Ajouter un Professeur</h2>
+<form (submit)="ajouterProfesseur()">
+  <label>Nom :</label>
+  <input type="text" [(ngModel)]="nouveauProf.nom" name="nom" required>
+
+  <label>Prénom :</label>
+  <input type="text" [(ngModel)]="nouveauProf.prenom" name="prenom" required>
+
+  <label>Email :</label>
+  <input type="email" [(ngModel)]="nouveauProf.email" name="email" required>
+
+  <label>Spécialité :</label>
+  <input type="text" [(ngModel)]="nouveauProf.specialite" name="specialite" required>
+
+  <button type="submit">Ajouter</button>
+</form>

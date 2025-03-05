@@ -1,0 +1,10 @@
+<h2>Modifier la Classe</h2>
+<form (submit)="modifierClasse()">
+  <label>Nom :</label>
+  <input type="text" [(ngModel)]="classe.nom" name="nom" required>
+
+  <label>Niveau :</label>
+  <input type="text" [(ngModel)]="classe.niveau" name="niveau" required>
+
+  <button type="submit">Modifier</button>
+</form>
