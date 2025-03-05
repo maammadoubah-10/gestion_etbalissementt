@@ -7,24 +7,26 @@ pipeline {
                 git branch: 'main', url: 'https://github.com/maammadoubah-10/gestion_etbalissementt.git'
             }
         }
-
-        stage('Build devops') {
-            steps {
-                script {
-                    dir('devops') {
-  sh '''
-cd devops/ms-classes && composer install --no-interaction --prefer-dist || exit 1
-cd ../ms-cours && composer install --no-interaction --prefer-dist || exit 1
-cd ../ms-etudiants && composer install --no-interaction --prefer-dist || exit 1
-cd ../ms-professeurs && composer install --no-interaction --prefer-dist || exit 1
-cd ../ms-emplois && composer install --no-interaction --prefer-dist || exit 1
-'''
-
-
-                    }
+stage('Build devops') {
+    steps {
+        script {
+            def services = ['ms-classes', 'ms-cours', 'ms-etudiants', 'ms-professeurs', 'ms-emplois']
+            services.each { service ->
+                dir("devops/${service}") {
+                    sh '''
+                    if [ -f composer.json ]; then
+                        composer install --no-interaction --prefer-dist
+                    else
+                        echo "composer.json non trouvé pour ${service}, vérifiez le dépôt !"
+                        exit 1
+                    fi
+                    '''
                 }
             }
         }
+    }
+}
+
 
         stage('Build angular') {
             steps {
