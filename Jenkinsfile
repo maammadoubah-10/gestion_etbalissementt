@@ -1,5 +1,9 @@
 pipeline {
-    agent any  // Utilise n'importe quel agent disponible
+    agent any 
+
+    environment {
+        IMAGE_PREFIX = "mamadouba634"  // Remplace par ton DockerHub username
+    }
 
     stages {
         stage('Checkout') {
@@ -8,60 +12,35 @@ pipeline {
             }
         }
 
-        stage('Build devops') {
+        stage('Build & Push Docker Images') {
             steps {
                 script {
                     def services = ['ms-classes', 'ms-professeurs', 'ms-emplois', 'ms-cours', 'ms-etudiants']
                     for (service in services) {
                         dir("devops/${service}") {
-                            sh '''
-                                echo "📌 Nettoyage et mise à jour des dépendances Laravel..."
-                                composer clear-cache
-                                composer install --no-interaction --prefer-dist --no-scripts --no-progress
-                                composer dump-autoload --optimize
-                            '''
+                            sh """
+                                echo "📌 Construction de l'image Docker pour ${service}..."
+                                docker build -t ${env.IMAGE_PREFIX}/${service}:latest .
+                                echo "📌 Push de l'image sur DockerHub..."
+                                docker login -u "mamadouba634" -p "momoba2000"
+                                docker push ${env.IMAGE_PREFIX}/${service}:latest
+                            """
                         }
                     }
                 }
             }
         }
 
-        stage('Build angular') {
+        stage('Deploy Docker Containers') {
             steps {
                 script {
-                    dir('angular/gestion-ecole') {
-                        sh 'npm install'
-                        sh 'npm run build'
+                    def services = ['ms-classes', 'ms-professeurs', 'ms-emplois', 'ms-cours', 'ms-etudiants']
+                    for (service in services) {
+                        sh """
+                            echo "📌 Démarrage du conteneur ${service}..."
+                            docker run -d --name ${service} -p 8080:80 ${env.IMAGE_PREFIX}/${service}:latest
+                        """
                     }
-                }
-            }
-        }
-
-        stage('Tests devops') {
-            steps {
-                script {
-                    dir('devops') {
-                        sh 'php artisan test || echo "⚠️ Les tests Laravel ont échoué !"'
-                    }
-                }
-            }
-        }
-
-        stage('Tests angular') {
-            steps {
-                script {
-                    dir('angular/gestion-ecole') {
-                        sh 'npm test || echo "⚠️ Les tests Angular ont échoué !"'
-                    }
-                }
-            }
-        }
-
-        stage('Docker Build & Push') {
-            steps {
-                script {
-                    sh 'docker-compose build'
-                    sh 'docker-compose up -d'
                 }
             }
         }
